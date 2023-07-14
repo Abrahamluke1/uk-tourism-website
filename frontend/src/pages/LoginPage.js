@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import TopBar from '../components/TopBar';
 
-const SignUp = () => {
+const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Do something with the form values (e.g., send a POST request to your server)
+    // Do something with the form values (e.g., authenticate user)
     console.log(`Email: ${email}, Password: ${password}`);
   };
 
@@ -28,12 +27,6 @@ const SignUp = () => {
     fontSize: '24px',
     marginBottom: '10px',
     fontWeight: 'bold',
-  };
-
-  const descriptionStyle = {
-    textAlign: 'center',
-    marginBottom: '20px',
-    color: '#777',
   };
 
   const labelStyle = {
@@ -60,17 +53,15 @@ const SignUp = () => {
     cursor: 'pointer'
   };
 
-  const loginLinkStyle = {
+  const signupLinkStyle = {
     marginTop: '10px',
     textAlign: 'center',
   };
 
   return (
-    
-    <div>
-        <TopBar/>
-      <h2 style={titleStyle}>Sign Up</h2>
-      <p style={descriptionStyle}>Please fill in this form to create an account.</p>
+    <>
+      <TopBar />
+      <h2 style={titleStyle}>User Login</h2>
       <form onSubmit={handleSubmit} style={formStyle}>
         <label style={labelStyle}>
           Email:
@@ -78,7 +69,7 @@ const SignUp = () => {
             style={inputStyle}
             type="email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </label>
@@ -88,27 +79,19 @@ const SignUp = () => {
             style={inputStyle}
             type="password"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
-        <label style={labelStyle}>
-          Confirm Password:
-          <input
-            style={inputStyle}
-            type="password"
-            value={confirmPassword}
-            onChange={e => setConfirmPassword(e.target.value)}
-            required
-          />
-        </label>
-        <button style={buttonStyle} type="submit">Sign Up</button>
+        <button style={buttonStyle} type="submit">
+          Login
+        </button>
       </form>
-      <p style={loginLinkStyle}>
-        Already have an account? <a href="#">Log in</a>
+      <p style={signupLinkStyle}>
+        Don't have an account? <a href="#">Sign up</a>
       </p>
-    </div>
+    </>
   );
 };
 
-export default SignUp;
+export default LoginPage;
