@@ -24,6 +24,16 @@
   color: white;
 }
 
+.scrollable-div::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollable-div {
+  -ms-overflow-style: none; 
+  scrollbar-width: none;
+}
+
+
 .App-link {
   color: #61dafb;
 }
