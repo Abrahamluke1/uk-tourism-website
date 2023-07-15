@@ -18,6 +18,17 @@ import belfast from '../assests/belfast.jpg';
 import bath from '../assests/bath.jpg';
 import brighton from '../assests/brighton.jpg';
 import newcastle from '../assests/newcastle.jpg';
+import peak from '../assests/peak.jpg';
+import beacons from '../assests/beacons.jfif';
+import lakedistrict from '../assests/lakedistrict.jpg';
+import snowdonia from '../assests/snowdonia.jfif';
+import cornwall from '../assests/cornwall.jpg';
+import isle from '../assests/isle.jpg';
+import pembroke from '../assests/pembroke.jpg';
+import keswick from '../assests/keswick.jfif';
+import bibury from '../assests/bibury.jpg';
+import whistable from '../assests/whistable.jpg';
+import yorkshire from '../assests/yorkshire.jpg';
 import '../App.css';
 
 
@@ -59,6 +70,30 @@ const HomePage = () => {
             <Card title="Bath" cover={bath} />
             <Card title="Brighton" cover={brighton} />
             <Card title="Newcastle" cover={newcastle} />
+        </div>
+     </>
+     <>
+     <h2 style={{ textAlign: 'left', paddingLeft: '10px' ,marginBottom:'0px',marginTop:'50px'}}>Countryside</h2>
+     <div className="scrollable-div" style={{
+  display: 'flex',
+  flexDirection: 'row',
+  overflowX: 'scroll',
+  scrollbarWidth: 'none', 
+  msOverflowStyle: 'none', 
+}}>
+
+            <Card title="The Peak District" cover={peak} />
+            <Card title="Brecon Beaconsh" cover={beacons} />
+            <Card title="The Lake District" cover={lakedistrict} />
+            <Card title="Snowdonia" cover={snowdonia} />
+            <Card title="Cornwall" cover={cornwall} />
+            <Card title="Isle of Skye" cover={isle} />
+            <Card title="Barafundle Bay" cover={pembroke} />
+            <Card title="Keswick, Cumbria" cover={keswick} />
+            <Card title="Bibury, Cotswolds" cover={bibury} />
+            <Card title="Whitstable, Kent" cover={whistable} />
+            
+            <Card title="Haworth, Yorkshire" cover={yorkshire} />
         </div>
      </>
     </div>
