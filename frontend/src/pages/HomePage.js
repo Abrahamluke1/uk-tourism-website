@@ -29,6 +29,21 @@ import keswick from '../assests/keswick.jfif';
 import bibury from '../assests/bibury.jpg';
 import whistable from '../assests/whistable.jpg';
 import yorkshire from '../assests/yorkshire.jpg';
+import Blackpool from '../assests/Blackpool.jpg';
+import Lunan from '../assests/Lunan.jpg';
+import Formby from '../assests/Formby.jpeg';
+import Talisker from '../assests/Talisker.jpeg';
+import Rhossili from '../assests/Rhossili.jpg';
+import porthcurno from '../assests/Porthcurno.jpg';
+import sandsend from '../assests/sandsend.jpg';
+import Dungeness from '../assests/Dungeness.jpg';
+import Seven from '../assests/Seven.jpg';
+import Watergate from '../assests/Watergate.jpg';
+import Shanklin from '../assests/Shanklin.jpg';
+import Westwittering from '../assests/Westwittering.jpg';
+import Bamburgh from '../assests/Bamburgh.jpg';
+import west from '../assests/west.jpeg';
+import Sandwood from '../assests/Sandwood.jpg';
 import '../App.css';
 
 
@@ -91,6 +106,37 @@ const HomePage = () => {
             <Card title="Barafundle Bay" cover={pembroke} />
             <Card title="Keswick, Cumbria" cover={keswick} />
             <Card title="Bibury, Cotswolds" cover={bibury} />
+            <Card title="Whitstable, Kent" cover={whistable} />
+            <Card title="Porthcurno" cover={porthcurno} />
+            <Card title="Rhossili" cover={Rhossili} />
+            <Card title="Talisker Bay" cover={Talisker} />
+            <Card title="Formby" cover={Formby} />
+            <Card title="Lunan Bay" cover={Lunan} />
+            <Card title="Blackpool Sands" cover={Blackpool} />
+            
+            <Card title="Haworth, Yorkshire" cover={yorkshire} />
+        </div>
+     </>
+     <>
+     <h2 style={{ textAlign: 'left', paddingLeft: '10px' ,marginBottom:'0px',marginTop:'50px'}}>Coasts</h2>
+     <div className="scrollable-div" style={{
+  display: 'flex',
+  flexDirection: 'row',
+  overflowX: 'scroll',
+  scrollbarWidth: 'none', 
+  msOverflowStyle: 'none', 
+}}>
+
+            <Card title="Sandwood Bay" cover={Sandwood} />
+            <Card title="West Lulworth" cover={west} />
+            <Card title="Bamburgh" cover={Bamburgh} />
+            <Card title="West Wittering" cover={Westwittering} />
+            <Card title="Shanklin" cover={Shanklin} />
+            <Card title="Watergate Bay" cover={Watergate} />
+            <Card title="Barafundle Bay" cover={pembroke} />
+            <Card title="Seven Sisters" cover={Seven} />
+            <Card title="Dungeness" cover={Dungeness} />
+            <Card title="Sandsend" cover={sandsend} />
             <Card title="Whitstable, Kent" cover={whistable} />
             
             <Card title="Haworth, Yorkshire" cover={yorkshire} />
