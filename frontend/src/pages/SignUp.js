@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import TopBar from '../components/TopBar';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
+
+
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-
+  const [errorMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -17,12 +22,16 @@ const SignUp = () => {
         confirmPassword
       });
 
-      console.log(response.data); // { message: 'User registered successfully!' }
+      console.log(response.data); 
+      setErrorMessage(null); 
+      // Redirect to home
+      navigate('/');
+    
     } catch (error) {
       console.error(error);
+      setErrorMessage(error.response.data.error); 
     }
   };
-
 
   const formStyle = {
     display: 'flex',
@@ -78,9 +87,8 @@ const SignUp = () => {
   };
 
   return (
-    
     <div>
-        <TopBar/>
+      <TopBar/>
       <h2 style={titleStyle}>Sign Up</h2>
       <p style={descriptionStyle}>Please fill in this form to create an account.</p>
       <form onSubmit={handleSubmit} style={formStyle}>
@@ -115,6 +123,7 @@ const SignUp = () => {
           />
         </label>
         <button style={buttonStyle} onClick={handleSubmit} type="submit">Sign Up</button>
+        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>} 
       </form>
       <p style={loginLinkStyle}>
         Already have an account? <a href="#">Log in</a>
