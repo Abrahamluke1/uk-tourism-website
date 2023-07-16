@@ -1,18 +1,22 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const User = require('./models/User'); // Assuming the user model file is in the same directory
+const cors = require('cors');
+const User = require('./User'); // Assuming the user model file is in the same directory
 const bcrypt = require('bcryptjs');
 
 const app = express();
 
+app.use(cors());
+
 // Connection to MongoDB
+
 mongoose.connect('mongodb+srv://abrahamluke90:nHwLw52oDad1E6MJ@cluster0.3nmgyqv.mongodb.net/?retryWrites=true&w=majority', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
 })
-.then(() => console.log('Connected to MongoDB successfully!'))
-.catch(err => console.error('Could not connect to MongoDB.', err));
+.then(() => console.log('MongoDB Connected...'))
+.catch(err => console.log(err));
+
 
 app.use(express.json()); // for parsing application/json
 

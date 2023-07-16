@@ -1,16 +1,28 @@
 import React, { useState } from 'react';
 import TopBar from '../components/TopBar';
+import axios from 'axios';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Do something with the form values (e.g., send a POST request to your server)
-    console.log(`Email: ${email}, Password: ${password}`);
+
+    try {
+      const response = await axios.post('http://localhost:5000/signup', {
+        email,
+        password,
+        confirmPassword
+      });
+
+      console.log(response.data); // { message: 'User registered successfully!' }
+    } catch (error) {
+      console.error(error);
+    }
   };
+
 
   const formStyle = {
     display: 'flex',
@@ -102,7 +114,7 @@ const SignUp = () => {
             required
           />
         </label>
-        <button style={buttonStyle} type="submit">Sign Up</button>
+        <button style={buttonStyle} onClick={handleSubmit} type="submit">Sign Up</button>
       </form>
       <p style={loginLinkStyle}>
         Already have an account? <a href="#">Log in</a>

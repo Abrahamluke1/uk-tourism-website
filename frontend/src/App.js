@@ -1,24 +1,25 @@
 import React from 'react';
 import SignUp from './pages/SignUp';
-
+// import { BrowserRouter as Router, Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
-import Slideshow from './components/SlideShow';
+
 import HomePage from './pages/HomePage';
 
 
-const App = () => {
-  const containerStyle = {
-    margin: '0',
-    padding: '0',
-  };
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+function App() {
   return (
-    <div >
-  {/* <LoginPage/> */}
-  {/* <Slideshow/> */}
-  <HomePage/>
-      {/* <SignUp /> */}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage/>} />
+        <Route path="/signup" element={<SignUp/>} />
+       
+      </Routes>
+    </Router>
   );
-};
+}
 
 export default App;
+
