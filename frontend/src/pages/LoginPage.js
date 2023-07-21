@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import TopBar from '../components/TopBar';
+// import TopBar from '../components/TopBar';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -60,7 +60,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <TopBar />
+      {/* <TopBar /> */}
       <h2 style={titleStyle}>User Login</h2>
       <form onSubmit={handleSubmit} style={formStyle}>
         <label style={labelStyle}>

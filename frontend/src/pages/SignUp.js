@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import TopBar from '../components/TopBar';
+// import TopBar from '../components/TopBar';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -88,7 +88,7 @@ const SignUp = () => {
 
   return (
     <div>
-      <TopBar/>
+      {/* <TopBar/> */}
       <h2 style={titleStyle}>Sign Up</h2>
       <p style={descriptionStyle}>Please fill in this form to create an account.</p>
       <form onSubmit={handleSubmit} style={formStyle}>
