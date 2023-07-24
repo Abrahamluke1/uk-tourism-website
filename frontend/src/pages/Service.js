@@ -1,18 +1,26 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import Navbar from "../components/Navbar";
-// import HomeHero from "../components/HomeHero";
 import AboutImg from "../assests/bath.jpg";
-import Footer from "../components/Footer";
-import Trip from "../components/Trip";
-
+import { useNavigate } from 'react-router-dom'; 
 
 
 
 function Service() {
+  const [data, setData] = useState(null);
   const [isHovered, setHovered] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+  useEffect(() => {
+    fetch('http://localhost:5000/places')
+        .then((response) => response.json())
+        .then((data) => setData(data))
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}, []);
 
   const searchContainerStyle = {
-    display: 'flex',
+    display: 'flex', 
     justifyContent: 'center',
     alignItems: 'center',
     backgroundImage: `url(${AboutImg})`,
@@ -54,11 +62,43 @@ function Service() {
             onMouseEnter={() => setHovered(true)} 
             onMouseLeave={() => setHovered(false)}
           />
-          <input type="text" placeholder="Search..." style={inputStyle} />
+          <input type="text" placeholder="Search..." style={inputStyle} onChange={(e)=>setSearchTerm(e.target.value)} />
         </div>
       </div>
-      <Trip />
-      <Footer />
+      <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
+      {
+  searchTerm && data 
+    .filter((val) => {
+      if(val.title.toLowerCase().includes(searchTerm.toLowerCase())){
+        return val;
+      }
+    })
+    .map((val) => {
+      return(
+        <div 
+                  key={val.id} 
+                  style={{
+                    boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
+                    padding: "0px",
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                    width:'300px',
+                    margin: "20px",
+                    textAlign: "center",
+                    cursor: 'pointer' // To show a pointer cursor when hovering
+                  }}
+                  onClick={() => navigate(`/detail/${val.title}`)} // Redirect to detail page on click
+                >
+                  <img src={val.image} alt="" style={{width: "100%", height: "200px", objectFit: "cover", borderRadius: "10px 10px 0 0"}}/>
+                  <h3>{val.title}</h3>
+                  <p>{val.description}</p>
+                </div>  
+      )
+    })
+}
+
+
+        </div>
     </>
   );
 }

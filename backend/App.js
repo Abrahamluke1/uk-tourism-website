@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const User = require('./User'); 
 const bcrypt = require('bcryptjs');
+const Place = require('./Place');
 
 
 
@@ -47,6 +48,16 @@ app.post('/signup', async (req, res) => {
     res.status(201).send({ message: 'User registered successfully!' });
   } catch (err) {
     res.status(500).send({ error: 'Server error!' });
+  }
+});
+
+app.get('/places', async (req, res) => {
+  try {
+    const places = await Place.find();
+    res.json(places);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send('Server error!');
   }
 });
 
