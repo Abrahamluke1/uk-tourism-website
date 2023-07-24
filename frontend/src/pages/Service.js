@@ -2,6 +2,7 @@ import React, { useState ,useEffect} from "react";
 import Navbar from "../components/Navbar";
 import AboutImg from "../assests/bath.jpg";
 import { useNavigate } from 'react-router-dom'; 
+import WikipediaComponent from "../components/WikipediaComponent";
 
 
 
@@ -67,38 +68,37 @@ function Service() {
       </div>
       <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
       {
-  searchTerm && data 
-    .filter((val) => {
-      if(val.title.toLowerCase().includes(searchTerm.toLowerCase())){
-        return val;
+        data && // if data is available
+        data
+          .filter((val) => {
+            if(searchTerm === "" || val.title.toLowerCase().includes(searchTerm.toLowerCase())){ // if no search term or if search term matches
+              return val;
+            }
+          })
+          .map((val) => {
+            return(
+              <div 
+                key={val.id} 
+                style={{
+                  boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
+                  padding: "0px",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  width:'300px',
+                  margin: "20px",
+                  textAlign: "center",
+                  cursor: 'pointer' // To show a pointer cursor when hovering
+                }}
+                onClick={() => navigate(`/detail/${val.title}`)} // Redirect to detail page on click
+              >
+                <img src={val.image} alt="" style={{width: "100%", height: "200px", objectFit: "cover", borderRadius: "10px 10px 0 0"}}loading="lazy"/>
+                <h3>{val.title}</h3>
+                <p>{val.description}</p>
+              </div>  
+            )
+          })
       }
-    })
-    .map((val) => {
-      return(
-        <div 
-                  key={val.id} 
-                  style={{
-                    boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
-                    padding: "0px",
-                    backgroundColor: "white",
-                    borderRadius: "10px",
-                    width:'300px',
-                    margin: "20px",
-                    textAlign: "center",
-                    cursor: 'pointer' // To show a pointer cursor when hovering
-                  }}
-                  onClick={() => navigate(`/detail/${val.title}`)} // Redirect to detail page on click
-                >
-                  <img src={val.image} alt="" style={{width: "100%", height: "200px", objectFit: "cover", borderRadius: "10px 10px 0 0"}}/>
-                  <h3>{val.title}</h3>
-                  <p>{val.description}</p>
-                </div>  
-      )
-    })
-}
-
-
-        </div>
+      </div>
     </>
   );
 }

@@ -1,8 +1,8 @@
 import React from "react";
 import London from "../assests/london.jpg";
-import Mountain2 from "../assests/ireland.jpg";
-import Mountain3 from "../assests/liverpool.jpg";
-import Mountain4 from "../assests/8.jpg";
+import ireland from "../assests/ireland.jpg";
+import liverpool from "../assests/liverpool.jpg";
+import whistable from "../assests/whistable.jpg";
 import DestinationData from "./DestinationData";
 
 const Destination = () => {
@@ -13,25 +13,18 @@ const Destination = () => {
         <p>Tours give you the opportunity to see a lot, within a time frame.</p>
         <DestinationData
           className="first-des"
-          heading="Taal Volcano, Batangas"
-          text="One of the most iconic views in Luzon, Mt. Taal boasts a volcano
-            inside a lake inside an island. If you fancy a closer look, the hike
-            up to the crater is a mere 45 minutes, and is easy enough for
-            beginners. Guides will assist you most of the way, and you’ll see
-            the peculiar environment found on an active volcano, including
-            volcanic rocks and steam vents. The hike can be dusty and hot, so
-            plan for an early morning trip, and then unwind with some bulalo
-            before heading back home!"
+          heading="London Bridge, Dunluce Castle"
+          text="In a whimsical fusion, the modern London Bridge finds itself on the rugged cliffs of Northern Ireland, adorned with the medieval grandeur of Dunluce Castle. Tourists now marvel at this enchanting spectacle, where contemporary engineering meets ancient architecture. As the bridge overlooks the Atlantic, echoes of legends and history create a magical atmosphere, captivating all who visit this extraordinary amalgamation."
           img1={London}
-          img2={Mountain2}
+          img2={ireland}
         />
 
         <DestinationData
           className="first-des-reverse"
-          heading="Mt. Daguldul, Batangas"
-          text="If you’re looking for a hike that’s a little more challenging but still good for a beginner mountaineer, check out Mt. Daguldul in San Juan, Batangas. You’ll start your hike from the beach and pass through tropical forest, different rock formations, and small streams. There’s a small store halfway up the trail where you can take a break and drink buko juice, and though the summit itself may not have the best view, the breeze is fantastic. Once you’ve made it back down, head straight to the beach for a refreshing, well-deserved swim."
-          img1={Mountain3}
-          img2={Mountain4}
+          heading="Liverpool, Whistable"
+          text="Discover the vibrant maritime history of Liverpool, with its iconic Albert Dock and The Beatles Story museum, then head to the charming seaside town of Whitstable for fresh oysters, coastal beauty, and artistic delights. Explore Liverpool's football legacy at Anfield Stadium and savor the creative spirit in Whitstable's art galleries, creating a perfect blend of history, culture, and seaside charm for tourists."
+          img1={liverpool}
+          img2={whistable}
         />
       </div>
     </>
