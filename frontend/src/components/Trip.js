@@ -7,8 +7,8 @@ import Trip3 from "../assests/6.jpg";
 function Trip() {
   return (
     <div className="trip">
-      <h1>Recent Trips</h1>
-      <p>You can discover unique destinations using Google Maps.</p>
+      {/* <h1>Recent Trips</h1> */}
+      {/* <p>You can discover unique destinations using Google Maps.</p> */}
       <div className="tripcard">
         <TripData
           image={Trip1}

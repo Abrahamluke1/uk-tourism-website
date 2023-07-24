@@ -1,8 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const User = require('./User'); // Assuming the user model file is in the same directory
+const User = require('./User'); 
 const bcrypt = require('bcryptjs');
+
+
 
 const app = express();
 
@@ -10,7 +12,7 @@ app.use(cors());
 
 // Connection to MongoDB
 
-mongoose.connect('mongodb+srv://abrahamluke90:nHwLw52oDad1E6MJ@cluster0.3nmgyqv.mongodb.net/?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://admin:Vw1CeaPGCaLrvOIc@cluster0.ayed85h.mongodb.net/?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
