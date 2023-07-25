@@ -6,6 +6,7 @@ import Service from "./pages/Service";
 import Contact from "./pages/Contact";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import WikipediaComponent from "./components/WikipediaComponent";
 
 function App() {
   return (
@@ -15,8 +16,13 @@ function App() {
           <Route path="/" element={<Home />} />
           {/* <Route path="/about" element={<About />} /> */}
           <Route path="/service" element={<Service />} />
+          <Route path="/detail/:title" element={<WikipediaComponent />} />
+
+
+
           {/* <Route path="/contact" element={<Contact />} /> */}
         </Routes>
+      
       </div>
     </Router>
   );

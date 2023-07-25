@@ -89,7 +89,10 @@ function Service() {
                   textAlign: "center",
                   cursor: 'pointer' // To show a pointer cursor when hovering
                 }}
-                onClick={() => navigate(`/detail/${val.title} ${val.postcode}`)} // Redirect to detail page on click
+                onClick={() => navigate(`/detail/${val.title}`, { state: { postcode: val.postcode, image: val.image } })} // Redirect to detail page on click
+
+
+
               >
                 <img src={val.image} alt="" style={{width: "100%", height: "200px", objectFit: "cover", borderRadius: "10px 10px 0 0"}}loading="lazy"/>
                 <h3>{val.title}</h3>
