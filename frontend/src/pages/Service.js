@@ -2,7 +2,7 @@ import React, { useState ,useEffect} from "react";
 import Navbar from "../components/Navbar";
 import AboutImg from "../assests/bath.jpg";
 import { useNavigate } from 'react-router-dom'; 
-import WikipediaComponent from "../components/WikipediaComponent";
+
 
 
 

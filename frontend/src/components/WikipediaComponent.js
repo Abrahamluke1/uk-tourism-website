@@ -1,17 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
+import 'weather-icons/css/weather-icons.css';
+import GoogleMapEmbed from './GoogleMapEmbed';
 
 const WikipediaComponent = () => {
+
+
+    
     const location = useLocation();
     const { title } = useParams();
     const { postcode, image } = location.state || { postcode: '', image: '' };
     const [content, setContent] = useState(null);
     const [weather, setWeather] = useState(null);
     const [coordinates, setCoordinates] = useState(null);
+    const [savedLocations, setSavedLocations] = useState([]);
+
 
     const YOUR_OPENCAGE_API_KEY = 'c036d39604944bbe8aaedb366023f24f';
     const YOUR_WEATHER_API_KEY = '604bab36fd1ac468a0b47738a40451de';
+
+    useEffect(() => {
+        const localSavedLocations = localStorage.getItem('savedLocations');
+        if (localSavedLocations) {
+            setSavedLocations(JSON.parse(localSavedLocations));
+        }
+    }, []);
+
+    const saveLocation = () => {
+        let localSavedLocations = localStorage.getItem('savedLocations');
+    
+        if (localSavedLocations) {
+            localSavedLocations = JSON.parse(localSavedLocations);
+        } else {
+            localSavedLocations = [];
+        }
+
+        if (!localSavedLocations.includes(title)) {
+            localSavedLocations.push(title);
+            localStorage.setItem('savedLocations', JSON.stringify(localSavedLocations));
+            setSavedLocations(localSavedLocations);
+        } else {
+            console.log('Location already saved');
+        }
+    };
+
 
     useEffect(() => {
         fetchWikipediaContent();
@@ -46,15 +79,29 @@ const WikipediaComponent = () => {
             .catch(error => console.error(error));
     };
 
+ 
     const fetchWeatherData = () => {
         fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${coordinates.lat}&lon=${coordinates.lng}&appid=${YOUR_WEATHER_API_KEY}`)
             .then(response => response.json())
             .then(data => {
+                data.weather[0].icon = mapWeatherIcon(data.weather[0].main); // map the weather main to an icon
                 setWeather(data);
             })
             .catch(error => console.error(error));
     };
+  
+    const mapWeatherIcon = (weatherMain) => {
+        switch (weatherMain.toLowerCase()) {
+            case 'clouds': return 'wi-cloudy';
+            case 'rain': return 'wi-rain';
+            case 'clear': return 'wi-day-sunny';
+            case 'snow': return 'wi-snow';
+          
+            default: return '';
+        }
+    }
 
+   
     const styles = {
         mainContainer: {
             display: 'flex',
@@ -69,14 +116,27 @@ const WikipediaComponent = () => {
             margin: '2em auto',
             marginTop: '10em',
         },
+        mapContainer: {
+            width: '600px',
+            height: '400px',
+        },
         container: {
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'flex-start',
-            justifyContent: 'center',
+            justifyContent: 'space-between',
             width: '100%',
         },
+        rightContainer: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            justifyContent: 'flex-start',
+            width: '50%',
+            paddingLeft: '2em',
+        },
         contentContainer: {
+            
             flex: '1 1 50%',
             padding: '1em',
             marginRight: '1em',
@@ -133,32 +193,44 @@ const WikipediaComponent = () => {
         },
     };
 
+ 
     return (
         <>
-            <Navbar/>
+           <Navbar savedLocations={savedLocations} />
+
             <div style={styles.mainContainer}>
                 <div style={styles.titleContainer}>
                     <h1 style={styles.title}>{title}</h1>
+                    <button onClick={saveLocation}>Save Location</button>
                 </div>
                 <div style={styles.container}>
                     <div style={styles.contentContainer}>
                         <p style={styles.content}>{content}</p>
                     </div>
-                    <div style={styles.imgContainer}>
-                        <img src={image} alt={title} loading="lazy" style={styles.img} />
+                    <div style={styles.rightContainer}>
+                        <div style={styles.imgContainer}>
+                            <img src={image} alt={title} loading="lazy" style={styles.img} />
+                        </div>
+                        {weather && weather.main && weather.weather && weather.weather[0] && (
+                            <div style={styles.weatherContainer}>
+                                <h2>Current Weather</h2>
+                                <p style={styles.weather}>Temperature: {Math.round(weather.main.temp - 273.15)}°C</p>
+                                <p style={styles.weather}>Humidity: {weather.main.humidity}%</p>
+                                <p style={styles.weather}>{weather.weather[0].description}</p>
+                                <i className={`wi ${weather.weather[0].icon}`} style={{fontSize: '3em'}}></i>
+                            </div>
+                        )}
+                        {coordinates && (
+                            <div style={styles.mapContainer}>
+                                <GoogleMapEmbed lat={coordinates.lat} lng={coordinates.lng} />
+                            </div>
+                        )}
                     </div>
                 </div>
-                {weather && weather.main && weather.weather && weather.weather[0] && (
-                    <div style={styles.weatherContainer}>
-                        <h2>Current Weather</h2>
-                        <p style={styles.weather}>Temperature: {Math.round(weather.main.temp - 273.15)}°C</p>
-                        <p style={styles.weather}>Humidity: {weather.main.humidity}%</p>
-                        <p style={styles.weather}>{weather.weather[0].description}</p>
-                    </div>
-                )}
             </div>
         </>
     );
+    
 };
 
 export default WikipediaComponent;

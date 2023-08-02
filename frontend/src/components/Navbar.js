@@ -4,12 +4,19 @@ import { MenuItems } from "./MenuItems";
 import "./Navbar.css";
 
 class Navbar extends Component {
-  state = { clicked: false };
+  state = { clicked: false, favoritesClicked: false };
+
   handleClick = () => {
     this.setState({ clicked: !this.state.clicked });
   };
 
+  handleFavoritesClick = () => {
+    this.setState({ favoritesClicked: !this.state.favoritesClicked });
+  };
+
   render() {
+    const { savedLocations } = this.props;
+
     return (
       <nav className="NavbarItems">
         <h1 className="navbar-logo">UK-Tour</h1>
@@ -23,10 +30,30 @@ class Navbar extends Component {
           {MenuItems.map((item, index) => {
             return (
               <li key={index}>
-                <Link className={item.cName} to={item.url}>
-                  <i className={item.icon}></i>
-                  {item.title}
-                </Link>
+                {item.dropdown ? (
+                  <>
+                    <button className={item.cName} onClick={this[item.onClick]}>
+                      <i className={item.icon}></i>
+                      {item.title}
+                    </button>
+                    {this.state.favoritesClicked && (
+                      <div className="favorites-dropdown">
+                        {savedLocations.length > 0 ? (
+                          savedLocations.map((location, index) => (
+                            <p key={index}>{location}</p>
+                          ))
+                        ) : (
+                          <p>No Favorites</p>
+                        )}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <Link className={item.cName} to={item.url}>
+                    <i className={item.icon}></i>
+                    {item.title}
+                  </Link>
+                )}
               </li>
             );
           })}
@@ -36,5 +63,6 @@ class Navbar extends Component {
     );
   }
 }
+
 
 export default Navbar;
