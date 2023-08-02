@@ -1,35 +1,49 @@
 import React, { useState } from "react";
-import "./styles.css";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Service from "./pages/Service";
-import Contact from "./pages/Contact";
-
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import WikipediaComponent from "./components/WikipediaComponent";
-import Navbar from './components/Navbar';
+import Navbar from "./components/Navbar";
+import LoginPage from "./pages/LoginPage";
+import SignUp from "./pages/SignUp";
 
-function App() {
+function AppRoutes() {
   const [savedLocations, setSavedLocations] = useState([]);
-
+  
   const handleSaveLocation = (location) => {
     setSavedLocations([...savedLocations, location]);
   };
+  
+  return (
+    <div>
+      <Navbar savedLocations={savedLocations} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        {/* <Route path="/about" element={<About />} /> */}
+        <Route path="/service" element={<Service />} />
+        <Route path="/detail/:title" element={<WikipediaComponent onSaveLocation={handleSaveLocation} />} />
+        <Route path="/register" element={<SignUp />} />
+      </Routes>
+    </div>
+  );
+}
 
+function App() {
+  const location = useLocation();
+  return (
+    <div className="App">
+      {location.pathname !== '/login' ? <AppRoutes /> : <LoginPage />}
+    </div>
+  );
+}
+
+function MainApp() {
   return (
     <Router>
-      <div className="App">
-        <Navbar savedLocations={savedLocations} />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          {/* <Route path="/about" element={<About />} /> */}
-          <Route path="/service" element={<Service />} />
-          <Route path="/detail/:title" element={<WikipediaComponent onSaveLocation={handleSaveLocation} />} />
-          {/* <Route path="/contact" element={<Contact />} /> */}
-        </Routes>
-      </div>
+      <App />
     </Router>
   );
 }
 
-export default App;
+export default MainApp;

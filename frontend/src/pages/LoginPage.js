@@ -11,6 +11,19 @@ const LoginPage = () => {
     console.log(`Email: ${email}, Password: ${password}`);
   };
 
+  const containerStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
+  };
+
+  const formContainerStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  };
   const formStyle = {
     display: 'flex',
     flexDirection: 'column',
@@ -59,8 +72,8 @@ const LoginPage = () => {
   };
 
   return (
-    <>
-      {/* <TopBar /> */}
+    <div style={containerStyle}>
+    <div style={formContainerStyle}>
       <h2 style={titleStyle}>User Login</h2>
       <form onSubmit={handleSubmit} style={formStyle}>
         <label style={labelStyle}>
@@ -86,11 +99,12 @@ const LoginPage = () => {
         <button style={buttonStyle} type="submit">
           Login
         </button>
-      </form>
-      <p style={signupLinkStyle}>
-        Don't have an account? <a href="#">Sign up</a>
-      </p>
-    </>
+        </form>
+        <p style={signupLinkStyle}>
+          Don't have an account? <a href="#">Sign up</a>
+        </p>
+      </div>
+    </div>
   );
 };
 
