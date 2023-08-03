@@ -33,6 +33,14 @@ const SignUp = () => {
     }
   };
 
+  const containerStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh', 
+  };
+  
+
   const formStyle = {
     display: 'flex',
     flexDirection: 'column',
@@ -87,6 +95,7 @@ const SignUp = () => {
   };
 
   return (
+     <div style={containerStyle}>
     <div>
       {/* <TopBar/> */}
       <h2 style={titleStyle}>Sign Up</h2>
@@ -126,8 +135,9 @@ const SignUp = () => {
         {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>} 
       </form>
       <p style={loginLinkStyle}>
-        Already have an account? <a href="#">Log in</a>
+        Already have an account? <a href="/login">Log in</a>
       </p>
+    </div>
     </div>
   );
 };

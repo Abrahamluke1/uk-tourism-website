@@ -3,6 +3,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import 'weather-icons/css/weather-icons.css';
 import GoogleMapEmbed from './GoogleMapEmbed';
+import axios from 'axios';
 
 const WikipediaComponent = () => {
 
@@ -27,24 +28,27 @@ const WikipediaComponent = () => {
         }
     }, []);
 
-    const saveLocation = () => {
-        let localSavedLocations = localStorage.getItem('savedLocations');
+    const saveLocation = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.post('http://localhost:5000/saveLocation', { location: title }, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
     
-        if (localSavedLocations) {
-            localSavedLocations = JSON.parse(localSavedLocations);
-        } else {
-            localSavedLocations = [];
-        }
-
-        if (!localSavedLocations.includes(title)) {
-            localSavedLocations.push(title);
-            localStorage.setItem('savedLocations', JSON.stringify(localSavedLocations));
-            setSavedLocations(localSavedLocations);
-        } else {
-            console.log('Location already saved');
+            if (response.status === 201) {
+                setSavedLocations(prevLocations => [...prevLocations, title]);
+            } else {
+                console.log(response.data.error);
+            }
+    
+        } catch (error) {
+            console.error(error);
         }
     };
-
+    
+    
 
     useEffect(() => {
         fetchWikipediaContent();

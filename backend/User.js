@@ -11,6 +11,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  locations: {
+    type: [String], // an array of strings
+    default: [],
+  },
 });
 
 UserSchema.pre('save', async function (next) {

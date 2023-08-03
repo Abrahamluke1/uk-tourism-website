@@ -16,7 +16,7 @@ class Navbar extends Component {
 
   render() {
     const { savedLocations } = this.props;
-
+  
     return (
       <nav className="NavbarItems">
         <h1 className="navbar-logo">UK-Tour</h1>
@@ -25,7 +25,7 @@ class Navbar extends Component {
             className={this.state.clicked ? "fas fa-times" : "fas fa-bars"}
           ></i>
         </div>
-
+  
         <ul className={this.state.clicked ? "nav-menu active" : "nav-menu"}>
           {MenuItems.map((item, index) => {
             return (
@@ -57,12 +57,12 @@ class Navbar extends Component {
               </li>
             );
           })}
-          <button>Sign Up</button>
+          <Link to="/login" className="nav-links-mobile">
+            Sign Up
+          </Link>
         </ul>
       </nav>
     );
   }
 }
-
-
 export default Navbar;

@@ -1,15 +1,40 @@
 import React, { useState } from 'react';
-// import TopBar from '../components/TopBar';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState(null);
+  
+  const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Do something with the form values (e.g., authenticate user)
-    console.log(`Email: ${email}, Password: ${password}`);
-  };
+  
+    try {
+      const response = await axios.post('http://localhost:5000/login', {
+        email,
+        password
+      });
+  
+      console.log(response.data);
+      setErrorMessage(null);
+      // After successful login, redirect to home
+      navigate('/');
+  
+    } catch (error) {
+      console.error(error);
+      if (error.response && error.response.data) {
+        setErrorMessage(error.response.data.error);
+      } else {
+        // some default error message if there is no detailed error from the server
+        setErrorMessage("An error occurred. Please try again.");
+      }
+    }
+  }; // This closing bracket was missing
+  
+  
 
   const containerStyle = {
     display: 'flex',
@@ -99,13 +124,14 @@ const LoginPage = () => {
         <button style={buttonStyle} type="submit">
           Login
         </button>
+        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         </form>
         <p style={signupLinkStyle}>
-          Don't have an account? <a href="#">Sign up</a>
+          Don't have an account? <a href="/register">Sign up</a>
         </p>
       </div>
     </div>
   );
-};
+}
 
 export default LoginPage;

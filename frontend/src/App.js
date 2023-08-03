@@ -1,49 +1,45 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import "./styles.css";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Service from "./pages/Service";
+
+
+import { BrowserRouter as Router, Route, Routes,useLocation } from "react-router-dom";
 import WikipediaComponent from "./components/WikipediaComponent";
-import Navbar from "./components/Navbar";
+import Navbar from './components/Navbar';
 import LoginPage from "./pages/LoginPage";
 import SignUp from "./pages/SignUp";
 
-function AppRoutes() {
+function RoutesWithNavbar() {
   const [savedLocations, setSavedLocations] = useState([]);
-  
+  const location = useLocation();
+
   const handleSaveLocation = (location) => {
     setSavedLocations([...savedLocations, location]);
   };
-  
+
   return (
-    <div>
-      <Navbar savedLocations={savedLocations} />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        {/* <Route path="/about" element={<About />} /> */}
-        <Route path="/service" element={<Service />} />
-        <Route path="/detail/:title" element={<WikipediaComponent onSaveLocation={handleSaveLocation} />} />
-        <Route path="/register" element={<SignUp />} />
-      </Routes>
-    </div>
+    <div className="App">
+     {(location.pathname !== "/login" && location.pathname !== "/register") && <Navbar savedLocations={savedLocations} />}
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/service" element={<Service />} />
+          <Route path="/detail/:title" element={<WikipediaComponent onSaveLocation={handleSaveLocation} />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<SignUp />} />
+        </Routes>
+      </div>
   );
 }
 
 function App() {
-  const location = useLocation();
-  return (
-    <div className="App">
-      {location.pathname !== '/login' ? <AppRoutes /> : <LoginPage />}
-    </div>
-  );
-}
-
-function MainApp() {
   return (
     <Router>
-      <App />
+      <RoutesWithNavbar />
     </Router>
   );
 }
 
-export default MainApp;
+export default App;

@@ -11,8 +11,6 @@ export const MenuItems = [
     cName: "nav-links",
     icon: "fa-solid fa-circle-info"
   },
- 
- 
   {
     title: "Search",
     url: "/service",
@@ -28,7 +26,9 @@ export const MenuItems = [
   },
   {
     title: "Sign Up",
-    url: "/home",
-    cName: "nav-links-mobile"
+    url: "/login",
+    cName: "nav-links",
+    icon: "fa-solid fa-user-plus"
   }
+  
 ];
