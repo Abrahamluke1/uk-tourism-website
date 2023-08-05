@@ -190,7 +190,10 @@ app.delete('/deleteLocation/:location', async (req, res) => {
 });
 
 app.post('/comments', async (req, res) => {
-  const { rating, comment } = req.body;
+  const { rating, comment, place } = req.body;  // Extract 'place' from the request body
+
+
+  console.log("Received request: ", req.body); // Log received request body
 
   if (!req.headers.authorization) {
     return res.status(401).send({ error: 'Authorization header is missing' });
@@ -199,17 +202,26 @@ app.post('/comments', async (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
 
   try {
-    // decode the token and extract the username
+    // decode the token
     const decodedToken = jwt.decode(token);
-    const username = decodedToken.username;
+    console.log("Decoded token: ", decodedToken); // Log decoded token
+
+    const userId = decodedToken.userId;
+
+    console.log("Extracted userId: ", userId); // Log userId
 
     const newComment = new Comment({
       rating,
       comment,
-      user: username, // use the username here
+      place: place,
+      user: userId, // use the userId here
     });
 
+    console.log("New Comment: ", newComment); // Log newComment
+
     const savedComment = await newComment.save();
+    console.log("Saved comment: ", savedComment); // Log saved comment
+
     res.status(201).json(savedComment);
   } catch (err) {
     console.error(err);
@@ -219,6 +231,30 @@ app.post('/comments', async (req, res) => {
 
 
 
+app.get('/comments', async (req, res) => {
+  const { place } = req.query;
+
+  if (!req.headers.authorization) {
+    return res.status(401).send({ error: 'Authorization header is missing' });
+  }
+
+  const token = req.headers.authorization.split(" ")[1];
+
+  try {
+    // decode the token
+    const decodedToken = jwt.decode(token);
+
+    // No need to filter by user anymore, but you might still want to filter by place if provided
+    const query = { place: place };
+    const comments = await Comment.find(query).populate('user');
+    console.log(comments)
+
+    res.status(200).json(comments);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ error: 'Server error!' });
+  }
+});
 
 
 app.use((err, req, res, next) => {

@@ -1,54 +1,66 @@
 /* CommentForm.module.css */
 
+/* Ensure this font is imported at a higher level, like in your main CSS or HTML */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
 
-.textarea::-webkit-input-placeholder {
-    visibility: hidden !important;
+* {
+    font-family: 'Roboto', sans-serif;
 }
 
-
+.textarea::-webkit-input-placeholder {
+    color: #b3b3b3;
+}
 
 .form {
     display: flex;
     flex-direction: column;
-    width: 900px;
-    margin: auto;
+    align-items: center;
+    padding: 20px;
 }
 
 .starRating {
-    font-size: 2em; /* Adjusts the size of the star rating component */
+    font-size: 2em;
+    margin-bottom: 15px; /* Added margin for spacing */
 }
 
 .row {
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Changed to center to make sure all items are centered */
     align-items: center;
+    width: 100%;
+    margin-bottom: 20px; /* Added margin for spacing */
 }
 
 .textarea {
     flex-grow: 1;
-    height: 40px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    resize: none;
-    padding: 10px; /* Adding some padding */
-    font-size: 16px; /* Adjusting font size */
+    height: 100px; /* Increased height for more writing space */
+    padding: 12px 15px; /* Increased padding */
+    font-size: 16px;
     margin-right: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px; /* Adding some border-radius */
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    transition: border 0.3s; /* Added transition */
+}
+
+.textarea:focus {
+    border-color: #3acbf7; /* Highlight border on focus */
+    outline: none;
 }
 
 .button {
-    width: 100px;
-    height: 40px;
-    background-color: #4CAF50; /* Green */
+    width: 150px; /* Increased width */
+    height: 45px; /* Increased height */
+    background-color: #3acbf7;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
     text-align: center;
+    transition: background-color 0.3s; /* Added transition */
+    font-weight: 500; /* Made text bolder */
+    letter-spacing: 0.5px; /* Spaced letters a bit */
 }
 
 .button:hover {
-    background-color: #45a049;
+    background-color: #59c5e6;
 }

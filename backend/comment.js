@@ -11,9 +11,15 @@ const CommentSchema = new Schema({
     required: true,
   },
   user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  place: { // Now place is a string
     type: String,
     required: true,
-  }
+  },
+  
 });
 
 module.exports = mongoose.model('Comment', CommentSchema);

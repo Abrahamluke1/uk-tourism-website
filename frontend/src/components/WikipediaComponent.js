@@ -6,6 +6,7 @@ import GoogleMapEmbed from './GoogleMapEmbed';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import Comment from './Comments';
+import CommentsList from './CommentsList';
 
 const WikipediaComponent = () => {
 
@@ -309,7 +310,14 @@ const WikipediaComponent = () => {
                     </div>
                 </div>
             </div>
-            <Comment/>
+            <div>
+    <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>Comments</h1>
+    <Comment place={title} />
+    <CommentsList place={title} />
+</div>
+
+
+
         </>
     );
     
