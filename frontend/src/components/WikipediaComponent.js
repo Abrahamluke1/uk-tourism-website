@@ -4,6 +4,8 @@ import Navbar from './Navbar';
 import 'weather-icons/css/weather-icons.css';
 import GoogleMapEmbed from './GoogleMapEmbed';
 import axios from 'axios';
+import Swal from 'sweetalert2';
+import Comment from './Comments';
 
 const WikipediaComponent = () => {
 
@@ -28,25 +30,98 @@ const WikipediaComponent = () => {
         }
     }, []);
 
-    const saveLocation = async () => {
+    const saveLocation = async (title, setLocations) => {
+        const token = localStorage.getItem('token');
+      
+        console.log('Token:', token); // Debug: log the token
+        console.log('Location to save:', title); // Debug: log the title
+      
         try {
-            const token = localStorage.getItem('token');
-            const response = await axios.post('http://localhost:5000/saveLocation', { location: title }, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-    
-            if (response.status === 201) {
-                setSavedLocations(prevLocations => [...prevLocations, title]);
-            } else {
-                console.log(response.data.error);
+          const response = await axios.post('http://localhost:5000/saveLocation', { location: title }, {
+            headers: {
+              'Authorization': `Bearer ${token}`
             }
-    
+          });
+      
+          console.log('Response:', response); // Debug: log the entire response
+      
+          if (response.status === 201) {
+            setSavedLocations(prevLocations => [...prevLocations, title]);
+          }
+      
+          Swal.fire({
+            icon: 'success',
+            title: 'Done!',
+            text: 'Location saved successfully!',
+            confirmButtonColor: '#3085d6',
+          })
         } catch (error) {
-            console.error(error);
+          console.error('Error:', error); // Debug: log the entire error
+      
+          if (error.response && error.response.status === 400) {
+            Swal.fire({
+              icon: 'info',
+              title: 'Oops...',
+              text: 'You already saved this location.',
+              confirmButtonColor: '#3085d6',
+            })
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong!',
+              confirmButtonColor: '#3085d6',
+            })
+          }
         }
-    };
+      }
+      
+    
+    
+    // delete location
+
+    const deleteLocation = (title) => {
+  const localSavedLocations = localStorage.getItem('savedLocations');
+  let parsedLocations = JSON.parse(localSavedLocations || '[]');
+  const token = localStorage.getItem('token'); 
+
+  if (!parsedLocations.includes(title)) {
+    Swal.fire({
+      icon: 'info',
+      title: 'Oops...',
+      text: 'This location has not been saved yet.',
+      confirmButtonColor: '#3085d6',
+    });
+  } else {
+    try {
+      const response = axios.delete(`http://localhost:5000/deleteLocation/${title}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      const index = parsedLocations.indexOf(title);
+      if (index > -1) {
+        parsedLocations.splice(index, 1);
+      }
+      localStorage.setItem('savedLocations', JSON.stringify(parsedLocations));
+      Swal.fire({
+        icon: 'success',
+        title: 'Done!',
+        text: 'Location deleted successfully!',
+        confirmButtonColor: '#3085d6',
+      });
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+        confirmButtonColor: '#3085d6',
+      });
+    }
+  }
+};
+
     
     
 
@@ -200,12 +275,14 @@ const WikipediaComponent = () => {
  
     return (
         <>
-           <Navbar savedLocations={savedLocations} />
+          <Navbar savedLocations={savedLocations} deleteLocation={deleteLocation} />
+
 
             <div style={styles.mainContainer}>
                 <div style={styles.titleContainer}>
                     <h1 style={styles.title}>{title}</h1>
-                    <button onClick={saveLocation}>Save Location</button>
+                    <button onClick={() => saveLocation(title)}>Save Location</button>
+
                 </div>
                 <div style={styles.container}>
                     <div style={styles.contentContainer}>
@@ -232,6 +309,7 @@ const WikipediaComponent = () => {
                     </div>
                 </div>
             </div>
+            <Comment/>
         </>
     );
     

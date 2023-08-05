@@ -18,6 +18,15 @@ const LoginPage = () => {
         password
       });
   
+      // Assuming the token is sent in the data of the response
+      const token = response.data.token;
+      
+      // You can store it in the local storage:
+      localStorage.setItem('token', token);
+  
+      // And set it as a default header in axios:
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  
       console.log(response.data);
       setErrorMessage(null);
       // After successful login, redirect to home
@@ -32,7 +41,7 @@ const LoginPage = () => {
         setErrorMessage("An error occurred. Please try again.");
       }
     }
-  }; // This closing bracket was missing
+  };
   
   
 

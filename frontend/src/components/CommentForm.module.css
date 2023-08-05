@@ -1,0 +1,54 @@
+/* CommentForm.module.css */
+
+
+.textarea::-webkit-input-placeholder {
+    visibility: hidden !important;
+}
+
+
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 900px;
+    margin: auto;
+}
+
+.starRating {
+    font-size: 2em; /* Adjusts the size of the star rating component */
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.textarea {
+    flex-grow: 1;
+    height: 40px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    resize: none;
+    padding: 10px; /* Adding some padding */
+    font-size: 16px; /* Adjusting font size */
+    margin-right: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px; /* Adding some border-radius */
+}
+
+.button {
+    width: 100px;
+    height: 40px;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.button:hover {
+    background-color: #45a049;
+}
