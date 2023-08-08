@@ -309,11 +309,16 @@ const WikipediaComponent = () => {
                         )}
                     </div>
                 </div>
+                <a href="https://www.booking.com/country/gb.en.html?aid=1856180&label=msn-6mxZu7KTV56_fpmH*ZUQjg-80470601220719:tikwd-80470700788054:loc-188:neo:mte:lp69232:dec:qsaccommodation%20booking%20in%20uk&utm_campaign=United%20Kingdom&utm_medium=cpc&utm_source=bing&utm_term=6mxZu7KTV56_fpmH*ZUQjg&msclkid=68cbf9ea963e1485de549d38ad5b60a7" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+      <h2 style={{ textAlign: 'center', marginTop: '40px', backgroundColor: '#01959a', color: 'white', padding: '10px', cursor: 'pointer' }}>Looking for Accommodation?</h2>
+    </a>
             </div>
+           
             <div>
     <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>Comments</h1>
     <Comment place={title} />
     <CommentsList place={title} />
+    
 </div>
 
 
